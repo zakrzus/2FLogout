@@ -1,25 +1,16 @@
 document.addEventListener('DOMContentLoaded', function() {
-  console.log("test");
   main();
   
 });
 
+var cookies = {
+  domain: "google.com",
+  domain: "github.com",
+  domain: "facebook.com"
+}
+
 function main(){
-  chrome.cookies.getAll({domain: "google.com"}, function(cookies) {
-    for(var i=0; i<cookies.length;i++) {
-      console.log(cookies[i]);
-      chrome.cookies.remove({url: "https://" + cookies[i].domain  + cookies[i].path, name: cookies[i].name});
-    }
-  });   
-
-  chrome.cookies.getAll({domain: "github.com"}, function(cookies) {
-    for(var i=0; i<cookies.length;i++) {
-      console.log(cookies[i]);
-      chrome.cookies.remove({url: "https://" + cookies[i].domain  + cookies[i].path, name: cookies[i].name});
-    }
-  });   
-
-  chrome.cookies.getAll({domain: "facebook.com"}, function(cookies) {
+  chrome.cookies.getAll(cookies, function(cookies) {
     for(var i=0; i<cookies.length;i++) {
       console.log(cookies[i]);
       chrome.cookies.remove({url: "https://" + cookies[i].domain  + cookies[i].path, name: cookies[i].name});
