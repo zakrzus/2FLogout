@@ -1,5 +1,5 @@
 document.addEventListener('DOMContentLoaded', function() {
-  main();
+  main(0);
   unload();
 });
 
@@ -9,24 +9,21 @@ var cookiesdomains = [
   {domain: "facebook.com"}
 ]
 
-function main(){
+function main(numberOf){
   try {
-    for(i = 0; cookiesdomains.length; i++){
-      chrome.cookies.getAll(cookiesdomains[i], function(cookies) {
-        for(var i=0; i < cookies.length; i++) {
-          console.log(cookies[i]);
-          chrome.cookies.remove({url: "https://" + cookies[i].domain  + cookies[i].path, name: cookies[i].name});
+      chrome.cookies.getAll(cookiesdomains[numberOf], function(cookies) {
+        for(var j=0; j < cookies.length; j++) {
+          console.log(cookies[j]);
+          chrome.cookies.remove({url: "https://" + cookies[j].domain  + cookies[j].path, name: cookies[j].name});
         }
+        if(numberOf <= cookiesdomains.length)
+        main(numberOf + 1);
       }); 
-      }  
-  } catch (error) {}
+  } catch (error) {alert(error)}
 }
-
 
 function unload(){
   chrome.windows.getCurrent(function (win) {
-    chrome.windows.remove(win.id, function(callback){
-
-    });
+    chrome.windows.remove(win.id);
   });
 }
