@@ -6,9 +6,8 @@ document.addEventListener('DOMContentLoaded', function() {
     github = data.github; 
     fb = data.fb;
   });
-  setTimeout(function(){ main(0); }, 100);
-  unload();
-  
+  main(0);
+  setTimeout(function(){unload();}, 1000); 
 });
 var google;
 var github;
